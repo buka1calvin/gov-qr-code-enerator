@@ -74,8 +74,8 @@ const QrCodeGenerator = () => {
   };
 
   return (
-    <div className="bg-black text-white w-screen h-screen flex items-center justify-center ">
-      <div className="w-full h-full py-5 px-10 flex flex-col gap-5">
+    <div className="bg-black text-white w-screen h-screen flex md:flex-row flex-col items-center justify-center ">
+      <div className="w-full h-full py-5 px-10 md:flex hidden flex-col gap-5">
         <h1 className="text-xl font-bold mb-36">QrCodeGen-Gov</h1>
         <div className="flex flex-col justify-around h-full">
           <div className="flex flex-col justify-center items-center">
@@ -97,8 +97,17 @@ const QrCodeGenerator = () => {
           </p>
         </div>
       </div>
-      <div className="w-full bg-stone-100 text-stone-900 h-full flex flex-col justify-center items-center">
-        <div ref={qrRef}>
+      <div className="w-full p-3 md:hidden block">
+        <h1 className="text-xl font-bold text-left">QrCodeGen-Gov</h1>
+      </div>
+      <div className="w-full relative bg-stone-100 text-stone-900 h-full flex flex-col justify-center items-center">
+        <div ref={qrRef} className="relative ">
+          <button
+            onClick={generateQRCode}
+            className="absolute -top-10 right-0 bg-green-600 text-white px-3 py-1 md:hidden block"
+          >
+            generate
+          </button>
           {qrData && !isExpired ? (
             <QRCodeSVG value={qrData} size={256} className="w-64 h-64" />
           ) : (
@@ -106,10 +115,7 @@ const QrCodeGenerator = () => {
           )}
         </div>
         <div className="mt-5 flex flex-col gap-4">
-          <Button
-            onClick={downloadQRCode}
-            className=""
-          >
+          <Button onClick={downloadQRCode} className="">
             Download QR Code
           </Button>
           <Button
